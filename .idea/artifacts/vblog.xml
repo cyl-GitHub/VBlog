@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="vblog">
+    <output-path>$PROJECT_DIR$/out/artifacts/vblog</output-path>
+    <root id="archive" name="vblog.war">
+      <element id="artifact" artifact-name="ssm:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="log4j-1.2.17" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,56 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    background: url("/img/backgroud/YHNRBJ.jpg");
+}
+
+.content-total {
+    margin: 3% 20% 0 20%;
+    background: url("/img/backgroud/NRGRXXBJT.jpg");
+    height: 35%;
+
+}
+
+.content-user-avatar {
+    width: 108px;
+    height: 108px;
+    margin-left: 45%;
+    background-color: black;
+    border-radius: 100px;
+}
+
+.content-user-name {
+    text-align: center;
+    color: black;
+    padding-top: 10px;
+}
+
+.content-user-signature {
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    padding: 8px 0 5px 0;
+}
+
+.content-user-choose {
+    padding: 3px 0 3px 0;
+    height: 60px;
+    background-color: white;
+}
+
+.content-user-choose > a {
+    padding-left: 180px;
+    text-decoration: none;
+    color: black;
+}
+
+.content-home-left {
+    background-color: white;
+    width: 20%;
+    height: 68px;
+    margin: 30px 20% 0 20%;
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.UserMapper">
+    <select id="userLogin" resultType="com.colin.bean.User">
+        select id ,name, password,telephone,email,signature,address,relationship,avatar from user where
+       (name =#{name} or email = #{email} or telephone=#{telephone}) and password=#{password}
+    </select>
+
+    <select id="userRegister" resultType="com.colin.bean.User">
+         select id ,name, password,telephone,email from user where
+       (name =#{name} or email = #{email} or telephone=#{telephone})
+    </select>
+
+
+    <insert id="insertUser">
+        insert into user(name,password,sex,telephone,email,signature,address,relationship)  values (#{name},#{password},#{sex},#{telephone},#{email},#{signature},#{address},#{relationship})
+    </insert>
+
+    <update id="updateUser">
+        update user set name = #{name},password=#{password},telephone=#{telephone},email=#{email},signature=#{signature},address=#{address},relationship=#{relationship} where id=#{id};
+    </update>
+
+
+    <update id="updateFans">
+          update user
+        set forcuscount=#{param2}
+        where id = #{param1}
+    </update>
+    <update id="updateForcus">
+          update user
+        set forcuscount=#{param2}
+        where id = #{param1}
+    </update>
+    <update id="updateUserAvatar">
+        update user set avatar=#{avatar} where id = #{id}
+    </update>
+
+    <select id="selectAllUser" resultType="com.colin.bean.User">
+    select id,
+           name,
+           (case sex
+                when '男' then '男'
+                when '女' then '女'
+                else ""
+               end) as sex,
+           password,
+           avatar,
+           telephone,
+           email,
+           signature,
+           createtime,
+           address,
+           relationship
+    from user
+</select>
+    <select id="selectUserById" resultType="com.colin.bean.User">
+        select id,name,avatar from user where id = #{id}
+    </select>
+
+</mapper>

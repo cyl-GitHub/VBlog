@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.allCenter {
+    width: 40%;
+    position: absolute;
+    left: 26%;
+
+}
+
+.body {
+    background: url("/img/backgroud/YHNRBJ.jpg");
+}
+
+.vblog-left {
+    margin: 0 0 0 21%;
+    float: left;
+    height: 80%;
+    font-size: 14px;
+}
+
+.vblog-left > ul {
+    background-image: url("/img/backgroud/NRGRXXBJT.jpg");
+    height: 60%;
+    line-height: 40px;
+    padding: 10px;
+}
+
+.vblog-left > ul > li {
+    list-style: none;
+}
+
+.vblog-right {
+    width: 200px;
+    height: 350px;
+    background-color: gainsboro;
+    float: right;
+    margin: 0 21% 0 0;
+}
+
+.vblog-avator {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    background-image: url("/img/backgroud/TX.jpg");
+    margin: 10px auto;
+}
+
+.vblog-right-information {
+    padding-left: 50px;
+}
+
+.vblog-avator > h3 {
+    margin: auto;
+    font-size: 20px;
+}

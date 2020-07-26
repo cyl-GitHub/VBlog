@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.MicroblogMapper">
+
+    <resultMap id="microResultMap" type="com.colin.bean.Microblog">
+        <id column="id" property="id"/>
+        <result column="content" property="content"/>
+        <result column="videourl" property="videoUrl"/>
+        <result column="pictureurl" property="pictureUrl"/>
+        <result column="createtime" property="createTime"/>
+        <result column="reason" property="reason"/>
+        <result column="likecount" property="likesCount"/>
+        <result column="transmitcount" property="forwardCount"/>
+        <result column="label" property="label"/>
+        <association property="user" javaType="com.colin.bean.User">
+            <id column="uid" property="id"/>
+        </association>
+    </resultMap>
+
+
+    <resultMap id="discuss" type="com.colin.bean.Discuss">
+        <id property="id" column="id"/>
+        <result property="microblogId" column="microblogid"/>
+        <result property="discussTime" column="discusstime"/>
+        <result property="comment" column="comment"/>
+        <result property="floor" column="floor"/>
+        <result property="likeCount" column="like"/>
+        <association property="commentPerson" javaType="User">
+            <id property="id" column="commentid"/>
+            <result property="name" column="commentname"/>
+        </association>
+        <association property="getCommentPerson" javaType="User">
+            <id property="id" column="respondentid"/>
+            <result property="name" column="getcommentname"/>
+        </association>
+    </resultMap>
+
+
+    <insert id="insertByMicroblog">
+        insert into microblog(uid,content,videourl,createtime) values (
+        #{user.id},#{content},#{videoUrl},#{createTime}
+        )
+    </insert>
+    <update id="uploadMicroblog">
+        update microblog set videourl = #{videoUrl} where id = #{id}
+    </update>
+    <delete id="deleteMicroblogByIDAjax">
+        delete from microblog where id = #{id}
+    </delete>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*) from microblog
+    </select>
+    <select id="selectAllArticleByUid" resultMap="microResultMap">
+             select id,
+               uid,
+               content,
+               reason,
+               videourl,
+               createtime,
+               likecount,
+               transmitcount,
+               label from Microblog where 1=1  order by createtime desc limit #{param1},#{param2}
+    </select>
+    <select id="select" resultType="com.colin.bean.Microblog">
+        select id,uid,content,videourl,createtime from Microblog where uid = #{user.id} and createtime =#{createTime}
+    </select>
+    <select id="selectLikesCount" resultType="java.lang.Integer">
+        select count(*) from likes where microblogid = #{id}
+    </select>
+    <select id="selectForwardCount" resultType="java.lang.Integer">
+        select count(*) from microblog where transmit_id = #{id}
+    </select>
+
+
+    <select id="selectTransmit" resultMap="microResultMap">
+        select id,
+               content,
+               reason,
+               videourl,
+               createtime,
+               likecount,
+               transmitcount,
+               label
+        from microblog
+        where uid = #{user.id}
+          and createtime = #{createTime}
+    </select>
+
+    <select id="selectById" resultMap="microResultMap">
+        select id,
+               uid,
+               content,
+               reason,
+               videourl,
+               createtime,
+               likecount,
+               transmitcount,
+               label
+        from microblog
+        where id = #{microblogid}
+    </select>
+
+    <insert id="addLikeCount">
+        insert into microblog(uid, likecount)
+        values (#{param1}, #{param2});
+
+    </insert>
+    <insert id="transmit">
+        insert into microblog(uid, content, reason, likecount, transmitcount, label, createtime,videourl)
+        values (#{user.id}, #{content}, #{reason}, #{likesCount}, #{forwardCount}, #{label}, #{createTime},#{videoUrl})
+    </insert>
+
+    <!--todo 更新文章的点赞量-->
+    <update id="updateLikeCount">
+        update microblog
+        set likecount=#{param2}
+        where uid = #{param1}
+          and id = #{param3}
+    </update>
+    <update id="updateTransmitCount">
+        update microblog
+        set transmitcount=#{param2}
+        where uid = #{param1}
+          and id = #{param3}
+    </update>
+
+
+    <select id="selectAllMic" resultType="com.colin.bean.Microblog">
+        select id,
+               uid,
+               content,
+               reason,
+               videourl,
+               createtime,
+               likecount,
+               transmitcount,
+               label
+        from microblog
+    </select>
+
+
+    <insert id="insertVblogDisuss">
+        insert
+        into
+        vblog.discuss(microblogid, commentid, respondentid, comment, floor)
+        values
+        (#{microblogId},#{commentPerson.id},(select id from vblog.user where name =#{getCommentPerson.name}),#{comment},#{floor});
+    </insert>
+    <insert id="insertPicture">
+        insert into picture(pictureurl,microblogid) values(#{pictureUrl},#{id})
+    </insert>
+    <delete id="deleteDiscussByUserId">
+
+    </delete>
+    <delete id="deleteCommentByUser">
+        delete from
+vblog.discuss where
+(discusstime = #{param3} and
+commentid = (SELECT id FROM vblog.user where name = #{param2}) and
+#{param2} = #{param1});
+    </delete>
+
+    <select id="selectVblogDiscussByMicroblogId" resultMap="discuss">
+        select
+        di1.id, di1.microblogid, di1.commentid, di1.respondentid, di1.discusstime, di1.comment, di1.floor, di1.like,us.name as commentname, us1.name as getcommentname
+        from
+        vblog.discuss di1 join vblog.user us on di1.commentid = us.id
+        left join vblog.user us1 on di1.respondentid = us1.id
+        where microblogid = #{microblogId};
+    </select>
+    <select id="selectPictureUrl" resultType="java.lang.String">
+        select pictureurl from picture where microblogid = #{id}
+    </select>
+    <select id="selectMyArticleByUid" resultMap="microResultMap">
+         select id,
+               uid,
+               content,
+               reason,
+               videourl,
+               createtime,
+               likecount,
+               transmitcount,
+               label from Microblog where uid=#{param3}  order by createtime desc limit #{param1},#{param2}
+    </select>
+    <select id="selectHot" resultMap="microResultMap">
+         select id,
+               uid,
+               content,
+               reason,
+               videourl,
+               createtime,
+               likecount,
+               transmitcount,
+               label from Microblog where 1=1  order by likecount desc limit #{param1},#{param2}
+    </select>
+</mapper>

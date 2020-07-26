@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+body {
+    background: url("/img/backgroud/YHDLBJ.jpg");
+}
+
+.login-total {
+    background-color: #ffffff;
+    margin: 8%;
+    border-radius: 10px 10px 10px 10px;
+    height: 80%;
+}
+
+.login-title {
+    padding-left: 10px;
+    font-family: 黑体;
+    font-size: 20px;
+}
+
+.login-body-left {
+    padding-left: 10px;
+    float: left;
+    width: 70%;
+    height: 80%;
+    border-radius: 10px;
+}
+
+.login-body-right {
+    border-radius: 10px;
+    float: left;
+    width: 24%;
+    background: url("/img/backgroud/DLBJ.jpg");
+    height: 94%;
+}
+
+.login-right-title {
+    margin-top: 10px;
+    margin-left: 98px;
+    font-size: 20px;
+    font-family: 宋体;
+}
+
+.login-input {
+    align-items: center;
+    height: 40px;
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.login-password-input {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+.login-buttom {
+    height: 40px;
+    width: 300px;
+    margin-top: 20px;
+    margin-left: 30px;
+    background: darkorange;
+}
+
+.login-notice {
+    margin-top: 20px;
+    margin-left: 70px;
+    font-size: 14px;
+    color: red;
+    font-family: 宋体;
+}
+
+.login-logo {
+    margin-left: 120px;
+    height: 105px;
+    width: 100px;
+    background: url("/img/backgroud/logo.jpg");
+}
+
+.login-right-top {
+    background-color: white;
+}

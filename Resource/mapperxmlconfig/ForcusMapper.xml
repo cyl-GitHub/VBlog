@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.colin.mapper.ForcusMapper">
+    <insert id="addForcus">
+        insert into forcus(microblogid, authorid, fansid)
+        values (#{param1}, #{param2}, #{param3});
+
+    </insert>
+    <delete id="deleteForcus">
+        delete
+        from forcus
+        where authorid = #{param1}
+          and fansid = #{param2}
+    </delete>
+    <select id="ifForcus" resultType="java.lang.Integer">
+        select count(*)
+        from forcus
+        where authorid = #{param1}
+          and fansid = #{param2}
+    </select>
+    <select id="selectfansCount" resultType="java.lang.Integer">
+        select count(fansid)
+        from forcus
+        where authorid = #{authorid};
+    </select>
+    <select id="selectMicCount" resultType="java.lang.Integer">
+        select count(authorid)
+        from forcus
+        where fansid = #{id};
+    </select>
+</mapper>
